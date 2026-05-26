@@ -8,11 +8,13 @@ import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirro
 import { classifyCodeblock } from "./extensions/classifyCodeblock.js"
 import { editorTheme, markdownHighlightStyle } from "./extensions/theme.js"
 import { editorKeymap } from "./extensions/keymap.js"
+import { imageUpload } from "./extensions/imageUpload.js"
 
 export interface EditorConfig {
   parent: HTMLElement
   doc?: string
-  uploadImage?: (file: File) => string
+  uploadImage?: (file: File) => Promise<string>
+  onUploadError?: (file: File, error: unknown) => void
   onChange?: (value: string) => void
   onCursorUpdate?: () => void
 }
@@ -36,7 +38,7 @@ export function createEditor(config: EditorConfig): EditorView {
   ]
 
   if (config.uploadImage) {
-    // extensions.push(imageEventHandlers(config.uploadImage))
+    extensions.push(imageUpload({ uploadImage: config.uploadImage, onUploadError: config.onUploadError }))
   }
 
   if (config.onChange) {

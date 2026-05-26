@@ -71,7 +71,9 @@
         <button data-cmd="strikethrough" title="打ち消し線 (Mod-Shift-x)"><s>S</s></button>
         <button data-cmd="code" title="コード (`)">&lt;/&gt;</button>
         <button data-cmd="link" title="リンク（状態表示のみ・挿入は Mod-k）" disabled>🔗</button>
+        <button id="image-button" title="画像を挿入">🖼️</button>
       </div>
+      <input id="image-input" type="file" accept="image/*" hidden />
       <div id="md-root"></div>
     </div>
     <script type="module" src="./main.ts"></script>

@@ -4,6 +4,15 @@ export interface MarkdownEditorOptions {
    * Called when the button state changes (caret move or edit).
    */
   onStateChange?: (state: ButtonState) => void
+  /**
+   * Uploads an image file and resolves to its URL. Enabling this lets the editor
+   * accept pasted/dropped images and exposes the `uploadImage` method.
+   */
+  uploadImage?: (file: File) => Promise<string>
+  /**
+   * Called when an image upload rejects.
+   */
+  onUploadError?: (file: File, error: unknown) => void
 }
 
 export interface MarkdownEditor {
@@ -31,6 +40,11 @@ export interface MarkdownEditor {
    * Inserts link for the current selection.
    */
   insertLink: () => void
+  /**
+   * Uploads an image at the current cursor, inserting a placeholder until the
+   * upload resolves. No-op when `uploadImage` is not configured.
+   */
+  uploadImage: (file: File) => void
   /**
    * Returns the current toolbar button state.
    */

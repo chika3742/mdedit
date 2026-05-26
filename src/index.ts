@@ -4,6 +4,7 @@ import { toggleBold, toggleCode, toggleItalic, toggleStrikethrough } from "./com
 import { getButtonState } from "./state/buttonState.js"
 import type { ButtonState, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
 import { insertLink } from "./commands/insertLink.js"
+import { uploadImageFiles } from "./extensions/imageUpload.js"
 
 export type { ButtonState, ButtonStateValue, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
 export { getButtonState } from "./state/buttonState.js"
@@ -21,6 +22,8 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
 
   const view = createEditor({
     parent: element,
+    uploadImage: options?.uploadImage,
+    onUploadError: options?.onUploadError,
     onCursorUpdate: onStateChange ? notify : undefined,
   })
 
@@ -35,6 +38,14 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
     toggleStrikethrough: () => toggleStrikethrough(view),
     toggleCode: () => toggleCode(view),
     insertLink: () => insertLink(view),
+    uploadImage: (file) => {
+      const uploadImage = options?.uploadImage
+      if (!uploadImage) return
+      uploadImageFiles(view, [file], view.state.selection.main.head, {
+        uploadImage,
+        onUploadError: options?.onUploadError,
+      })
+    },
     getButtonState: () => getButtonState(view.state),
   }
 }
