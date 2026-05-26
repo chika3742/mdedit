@@ -1,6 +1,6 @@
 # mdedit
 
-> ![WARNING]
+> [!WARNING]
 > 
 > This package is not intended for use outside of my project.
 
@@ -9,13 +9,15 @@ It provides formatting commands — bold, italic, strikethrough, code, and link 
 
 ## Installation
 
-
+```sh
+pnpm add @chika3742/mdedit
+```
 
 ## Usage
 
 ```ts
-import { createMarkdownEditor } from "mdedit"
-import type { ButtonState } from "mdedit"
+import { createMarkdownEditor } from "@chika3742/mdedit"
+import type { ButtonState } from "@chika3742/mdedit"
 
 const editor = createMarkdownEditor(document.querySelector("#md-root")!, {
   autofocus: true,
