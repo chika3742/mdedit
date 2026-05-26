@@ -1,6 +1,5 @@
 {
-  "name": "mdedit",
-  "private": true,
+  "name": "@chika3742/mdedit",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,8 +10,21 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chika3742/mdedit.git"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.2",
@@ -29,12 +41,14 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@microsoft/api-extractor": "^7.58.7",
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^10.4.0",
     "happy-dom": "^20.9.0",
     "jiti": "^2.7.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.4",
+    "unplugin-dts": "^1.0.1",
     "vite": "^8.0.12",
     "vitest": "^4.1.7"
   },
