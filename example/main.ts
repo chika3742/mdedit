@@ -31,6 +31,7 @@ import type { ButtonState } from "../src/index.js"
     italic: () => editor.toggleItalic(),
     strikethrough: () => editor.toggleStrikethrough(),
     code: () => editor.toggleCode(),
+    link: () => editor.insertLink(),
   } as const
 
   for (const [key, button] of byKey) {

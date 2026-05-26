@@ -10,8 +10,15 @@ export const CODE_NODE_NAMES = new Set([
   "HTMLBlock",
 ])
 
-// 範囲がコードブロックと交差するか
-export function intersectsCode(state: EditorState, sel: SelectionRange): boolean {
+/**
+ * Returns `true` if the selection intersects code blocks or inline codes.
+ *
+ * @param state {@link EditorState}
+ * @param sel Selection range. If not provided, reads the main selection from {@link state}.
+ */
+export function intersectsCode(state: EditorState, sel?: SelectionRange): boolean {
+  sel ??= state.selection.main
+
   let found = false
   syntaxTree(state).iterate({
     from: sel.from, to: sel.to,

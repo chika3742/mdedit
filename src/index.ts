@@ -3,6 +3,7 @@ import { createEditor } from "./createEditor.js"
 import { toggleBold, toggleCode, toggleItalic, toggleStrikethrough } from "./commands/formatting.js"
 import { getButtonState } from "./state/buttonState.js"
 import type { ButtonState, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
+import { insertLink } from "./commands/insertLink.js"
 
 export type { ButtonState, ButtonStateValue, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
 export { getButtonState } from "./state/buttonState.js"
@@ -33,6 +34,7 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
     toggleItalic: () => toggleItalic(view),
     toggleStrikethrough: () => toggleStrikethrough(view),
     toggleCode: () => toggleCode(view),
+    insertLink: () => insertLink(view),
     getButtonState: () => getButtonState(view.state),
   }
 }

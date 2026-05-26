@@ -1,32 +1,15 @@
 import type { Command, EditorView } from "@codemirror/view"
 import { EditorSelection } from "@codemirror/state"
 import { createToggleCommand } from "./createToggleCommand.js"
+import { boldSpec, inlineCodeSpec, italicSpec, strikethroughSpec } from "../utils/markers.js"
 
-// export const toggleBold = toggleWrap("StrongEmphasis", "EmphasisMark", "**")
-export const toggleBold = createToggleCommand({
-  template: "**",
-  nodeName: "StrongEmphasis",
-  matcher: /\*\*|__/g,
-})
-
-export const toggleItalic = createToggleCommand({
-  template: "*",
-  nodeName: "Emphasis",
-  matcher: /[*_]/g,
-})
-export const toggleStrikethrough = createToggleCommand({
-  template: "~~",
-  nodeName: "Strikethrough",
-  matcher: /~~/g,
-})
+export const toggleBold = createToggleCommand(boldSpec)
+export const toggleItalic = createToggleCommand(italicSpec)
+export const toggleStrikethrough = createToggleCommand(strikethroughSpec)
 export const toggleCode: Command = (view: EditorView) => {
   const { state } = view
   if (!state.selection.main.empty || state.doc.lineAt(state.selection.main.head).length !== 0) {
-    return createToggleCommand({
-      template: "`",
-      nodeName: "InlineCode",
-      matcher: /`/g,
-    })(view)
+    return createToggleCommand(inlineCodeSpec)(view)
   }
   const change = state.changeByRange((range) => {
     return {

@@ -2,23 +2,7 @@ import { EditorState, EditorSelection, SelectionRange, Text } from "@codemirror/
 import { syntaxTree } from "@codemirror/language"
 import type { Command } from "@codemirror/view"
 import { intersectsCode } from "../utils/intersectsCode.js"
-
-interface MarkerSpec {
-  /**
-   * @example "**"
-   */
-  template: string
-
-  /**
-   * @example "StrongEmphasis"
-   */
-  nodeName: string
-
-  /**
-   * @example /\*\*|__/g
-   */
-  matcher: RegExp
-}
+import { matchLen, type MarkerSpec } from "../utils/markers.js"
 
 // 構文木上、selが指定nodeNameに含まれるなら、その最小ノード範囲を返す
 function growToNode(state: EditorState, sel: SelectionRange, nodeName: string): SelectionRange {
@@ -38,22 +22,6 @@ function growToNode(state: EditorState, sel: SelectionRange, nodeName: string): 
   return newFrom !== null && newTo !== null
     ? EditorSelection.range(newFrom, newTo)
     : sel
-}
-
-// 範囲の先頭/末尾にマーカーがあるか判定（カーソル時は範囲外も少し見る）
-function matchLen(doc: Text, sel: SelectionRange, spec: MarkerSpec, side: "start" | "end"): number {
-  const buf = spec.template.length
-  const [from, to] = sel.empty
-    ? (side === "start" ? [sel.from - buf, sel.to] : [sel.from, sel.to + buf])
-    : [sel.from, sel.to]
-  const text = doc.sliceString(from, to)
-  spec.matcher.lastIndex = 0
-  let m: RegExpExecArray | null
-  while ((m = spec.matcher.exec(text)) !== null) {
-    if (side === "start" && m.index === 0) return m[0].length
-    if (side === "end" && m.index + m[0].length === text.length) return m[0].length
-  }
-  return -1
 }
 
 // 確定した範囲に対して toggle

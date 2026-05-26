@@ -1,9 +1,13 @@
 import type { Command } from "@codemirror/view"
 import { EditorSelection } from "@codemirror/state"
+import { intersectsCode } from "../utils/intersectsCode.js"
 
 export const insertLink: Command = (view) => {
   const { state } = view
   const changes = state.changeByRange((range) => {
+    if (intersectsCode(state, range)) {
+      return { changes: [], range }
+    }
     const text = state.doc.sliceString(range.from, range.to) || "Link Text"
     const insert = `[${text}](url)`
     // Place the selection over the "url" placeholder.
