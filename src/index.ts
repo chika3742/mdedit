@@ -38,7 +38,7 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
   }
 
   return {
-    destroy: view.destroy,
+    destroy: () => view.destroy(),
     toggleBold: () => toggleBold(view),
     toggleItalic: () => toggleItalic(view),
     toggleStrikethrough: () => toggleStrikethrough(view),
