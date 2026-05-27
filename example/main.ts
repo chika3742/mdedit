@@ -56,6 +56,9 @@ import type { ButtonState } from "../src/index.js"
     blockquote: () => editor.toggleBlockquote(),
     bulletList: () => editor.toggleBulletList(),
     orderedList: () => editor.toggleOrderedList(),
+    heading2: () => editor.toggleHeading(2),
+    heading3: () => editor.toggleHeading(3),
+    heading4: () => editor.toggleHeading(4),
   } as const
 
   for (const [key, button] of byKey) {

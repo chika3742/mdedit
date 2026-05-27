@@ -10,6 +10,7 @@ import { toggleHorizontalRule } from "./commands/toggleHorizontalRule.js"
 import { toggleBlockquote } from "./commands/toggleBlockquote.js"
 import { toggleBulletList } from "./commands/toggleBulletList.js"
 import { toggleOrderedList } from "./commands/toggleOrderedList.js"
+import { toggleHeading } from "./commands/toggleHeading.js"
 import { uploadImageFiles } from "./extensions/imageUpload.js"
 
 export type { ButtonState, ButtonStateValue, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
@@ -50,6 +51,7 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
     toggleBlockquote: () => toggleBlockquote(view),
     toggleBulletList: () => toggleBulletList(view),
     toggleOrderedList: () => toggleOrderedList(view),
+    toggleHeading: level => toggleHeading(level)(view),
     uploadImage: (file) => {
       const uploadImage = options?.uploadImage
       if (!uploadImage) return

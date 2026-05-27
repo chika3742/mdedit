@@ -5,6 +5,14 @@ import { intersectsCode } from "./intersectsCode.js"
 export const BLOCKQUOTE_RE = /^>\s?/
 export const BULLET_RE = /^[-*+]\s+/
 export const ORDERED_RE = /^\d+\.\s+/
+// Leading ATX heading prefix; the capture group counts the `#` (the level).
+export const HEADING_RE = /^(#{1,6})\s+/
+
+// ATX heading level (1-6) at the start of `text`, or 0 when absent.
+export function headingLevel(text: string): number {
+  const match = HEADING_RE.exec(text)
+  return match ? match[1].length : 0
+}
 
 // Length of the prefix matched by `re` at the start of `text`, or 0 when absent.
 export function prefixLen(text: string, re: RegExp): number {

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { toggleHeading } from "../../src/commands/toggleHeading.js"
+import { createMarkdownEditor } from "../../src/index.js"
 import { cursorView, rangeView, render } from "../helpers.js"
 
 describe("toggleHeading", () => {
@@ -40,5 +41,15 @@ describe("toggleHeading", () => {
     toggleHeading(2)(view)
     // "## " is level(2) + 1 chars long.
     expect(view.state.selection.main.head).toBe(3)
+  })
+
+  it("is exposed as a delegating method on the editor", () => {
+    const parent = document.createElement("div")
+    document.body.appendChild(parent)
+    const editor = createMarkdownEditor(parent)
+    editor.toggleHeading(2)
+    expect(editor.getButtonState().heading2).toBe("active")
+    editor.destroy()
+    parent.remove()
   })
 })

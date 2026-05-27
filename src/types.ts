@@ -70,6 +70,11 @@ export interface MarkdownEditor {
    */
   toggleOrderedList: () => void
   /**
+   * Toggles an ATX heading of the given level (1-6) on each selected line:
+   * adds the prefix, switches the level, or removes it when already at `level`.
+   */
+  toggleHeading: (level: number) => void
+  /**
    * Uploads an image at the current cursor, inserting a placeholder until the
    * upload resolves. No-op when `uploadImage` is not configured.
    */
@@ -92,4 +97,7 @@ export interface ButtonState {
   blockquote: ButtonStateValue
   bulletList: ButtonStateValue
   orderedList: ButtonStateValue
+  heading2: ButtonStateValue
+  heading3: ButtonStateValue
+  heading4: ButtonStateValue
 }

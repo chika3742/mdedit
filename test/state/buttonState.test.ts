@@ -48,6 +48,9 @@ describe("getButtonState", () => {
       blockquote: "inactive",
       bulletList: "inactive",
       orderedList: "inactive",
+      heading2: "inactive",
+      heading3: "inactive",
+      heading4: "inactive",
     })
   })
 
@@ -112,5 +115,30 @@ describe("getButtonState", () => {
 
   it("empty inline-code markers `|` make code active", () => {
     expect(stateAt("`|`").code).toBe("active")
+  })
+
+  it("heading reports the active level and leaves the others inactive", () => {
+    const s = stateAt("## hea|ding")
+    expect(s.heading2).toBe("active")
+    expect(s.heading3).toBe("inactive")
+    expect(s.heading4).toBe("inactive")
+  })
+
+  it("a level-3 heading reports heading3", () => {
+    expect(stateAt("### hea|ding").heading3).toBe("active")
+  })
+
+  it("a level-1 heading surfaces no heading2-4 state", () => {
+    const s = stateAt("# hea|ding")
+    expect(s.heading2).toBe("inactive")
+    expect(s.heading3).toBe("inactive")
+    expect(s.heading4).toBe("inactive")
+  })
+
+  it("inside a code block, heading2-4 are disabled", () => {
+    const s = stateAt("```\nco|de\n```")
+    expect(s.heading2).toBe("disabled")
+    expect(s.heading3).toBe("disabled")
+    expect(s.heading4).toBe("disabled")
   })
 })

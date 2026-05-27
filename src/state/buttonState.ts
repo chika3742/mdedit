@@ -2,7 +2,7 @@ import type { EditorState, SelectionRange } from "@codemirror/state"
 import { intersectsCode } from "../utils/intersectsCode.js"
 import { contains, someNode } from "../utils/syntaxTree.js"
 import { boldSpec, hasSurroundingMarkers, inlineCodeSpec, italicSpec, strikethroughSpec } from "../utils/markers.js"
-import { BLOCKQUOTE_RE, BULLET_RE, ORDERED_RE } from "../utils/blockPrefix.js"
+import { BLOCKQUOTE_RE, BULLET_RE, headingLevel, ORDERED_RE } from "../utils/blockPrefix.js"
 import type { ButtonState, ButtonStateValue } from "../types.js"
 
 const CODE_ACTIVE_NODE_NAMES = new Set(["InlineCode", "FencedCode", "CodeBlock"])
@@ -43,6 +43,9 @@ export function getButtonState(state: EditorState): ButtonState {
   const blockquote = BLOCKQUOTE_RE.test(lineText)
   const bulletList = BULLET_RE.test(lineText)
   const orderedList = ORDERED_RE.test(lineText)
+  // Heading level from the caret line's leading `#` prefix, matching the
+  // toggleHeading command. Only levels 2-4 are surfaced in the button state.
+  const level = headingLevel(lineText)
 
   return {
     bold: value(bold, code),
@@ -54,5 +57,8 @@ export function getButtonState(state: EditorState): ButtonState {
     blockquote: value(blockquote, code),
     bulletList: value(bulletList, code),
     orderedList: value(orderedList, code),
+    heading2: value(level === 2, code),
+    heading3: value(level === 3, code),
+    heading4: value(level === 4, code),
   }
 }
