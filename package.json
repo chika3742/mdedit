@@ -1,9 +1,11 @@
 {
   "name": "@chika3742/mdedit",
   "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite ./example",
+    "check": "pnpm run lint; pnpm run typecheck; pnpm run test",
     "typecheck": "tsc",
     "test": "vitest run",
     "lint": "eslint",
