@@ -4,8 +4,8 @@ import { EditorView } from "@codemirror/view"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { languages } from "@codemirror/language-data"
 import { ensureSyntaxTree } from "@codemirror/language"
-import { imageUpload, uploadImageFiles } from "../src/extensions/imageUpload.js"
-import type { ImageUploadConfig } from "../src/extensions/imageUpload.js"
+import { imageUpload, uploadImageFiles } from "../../src/extensions/imageUpload.js"
+import type { ImageUploadConfig } from "../../src/extensions/imageUpload.js"
 
 interface Deferred {
   promise: Promise<string>

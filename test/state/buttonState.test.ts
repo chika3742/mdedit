@@ -3,7 +3,7 @@ import { EditorState } from "@codemirror/state"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { languages } from "@codemirror/language-data"
 import { ensureSyntaxTree } from "@codemirror/language"
-import { getButtonState } from "../src/state/buttonState.js"
+import { getButtonState } from "../../src/index.js"
 
 // Build a state from a doc string where "|" marks the caret position.
 function stateAt(docWithCursor: string) {
