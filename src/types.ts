@@ -37,9 +37,38 @@ export interface MarkdownEditor {
    */
   toggleCode: () => void
   /**
-   * Inserts link for the current selection.
+   * Toggles a link for the current selection: inserts a link template when
+   * outside a link, or unwraps to the link text when inside one.
    */
-  insertLink: () => void
+  toggleLink: () => void
+  /**
+   * Wraps the current selection in a `<span style="color: ...">` template,
+   * placing the caret over the color placeholder.
+   */
+  insertFontColor: () => void
+  /**
+   * Wraps the current selection in a `<span style="font-size: ...">` template,
+   * placing the caret over the size placeholder.
+   */
+  insertFontSize: () => void
+  /**
+   * Toggles a horizontal rule (`---`): inserts one at the cursor, or removes the
+   * rule when the cursor is on existing.
+   */
+  toggleHorizontalRule: () => void
+  /**
+   * Toggles blockquote (`> `) on each selected line.
+   */
+  toggleBlockquote: () => void
+  /**
+   * Toggles a bullet list (`- `) on each selected line.
+   */
+  toggleBulletList: () => void
+  /**
+   * Toggles an ordered list (`1. `) on each selected line, renumbering across
+   * a multi-line selection.
+   */
+  toggleOrderedList: () => void
   /**
    * Uploads an image at the current cursor, inserting a placeholder until the
    * upload resolves. No-op when `uploadImage` is not configured.
@@ -59,4 +88,8 @@ export interface ButtonState {
   strikethrough: ButtonStateValue
   code: ButtonStateValue
   link: ButtonStateValue
+  horizontalRule: ButtonStateValue
+  blockquote: ButtonStateValue
+  bulletList: ButtonStateValue
+  orderedList: ButtonStateValue
 }

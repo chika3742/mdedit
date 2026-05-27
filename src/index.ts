@@ -3,7 +3,13 @@ import { createEditor } from "./createEditor.js"
 import { toggleBold, toggleCode, toggleItalic, toggleStrikethrough } from "./commands/formatting.js"
 import { getButtonState } from "./state/buttonState.js"
 import type { ButtonState, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
-import { insertLink } from "./commands/insertLink.js"
+import { toggleLink } from "./commands/toggleLink.js"
+import { insertFontColor } from "./commands/insertFontColor.js"
+import { insertFontSize } from "./commands/insertFontSize.js"
+import { toggleHorizontalRule } from "./commands/toggleHorizontalRule.js"
+import { toggleBlockquote } from "./commands/toggleBlockquote.js"
+import { toggleBulletList } from "./commands/toggleBulletList.js"
+import { toggleOrderedList } from "./commands/toggleOrderedList.js"
 import { uploadImageFiles } from "./extensions/imageUpload.js"
 
 export type { ButtonState, ButtonStateValue, MarkdownEditor, MarkdownEditorOptions } from "./types.js"
@@ -37,7 +43,13 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
     toggleItalic: () => toggleItalic(view),
     toggleStrikethrough: () => toggleStrikethrough(view),
     toggleCode: () => toggleCode(view),
-    insertLink: () => insertLink(view),
+    toggleLink: () => toggleLink(view),
+    insertFontColor: () => insertFontColor(view),
+    insertFontSize: () => insertFontSize(view),
+    toggleHorizontalRule: () => toggleHorizontalRule(view),
+    toggleBlockquote: () => toggleBlockquote(view),
+    toggleBulletList: () => toggleBulletList(view),
+    toggleOrderedList: () => toggleOrderedList(view),
     uploadImage: (file) => {
       const uploadImage = options?.uploadImage
       if (!uploadImage) return

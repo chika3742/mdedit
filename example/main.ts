@@ -43,13 +43,19 @@ import type { ButtonState } from "../src/index.js"
     imageInput.value = ""
   })
 
-  // Only buttons backed by a toggle method run on click (link is state-display only).
+  // Only buttons backed by a toggle/insert method run on click (link is state-display only).
   const commands = {
     bold: () => editor.toggleBold(),
     italic: () => editor.toggleItalic(),
     strikethrough: () => editor.toggleStrikethrough(),
     code: () => editor.toggleCode(),
-    link: () => editor.insertLink(),
+    link: () => editor.toggleLink(),
+    fontColor: () => editor.insertFontColor(),
+    fontSize: () => editor.insertFontSize(),
+    horizontalRule: () => editor.toggleHorizontalRule(),
+    blockquote: () => editor.toggleBlockquote(),
+    bulletList: () => editor.toggleBulletList(),
+    orderedList: () => editor.toggleOrderedList(),
   } as const
 
   for (const [key, button] of byKey) {

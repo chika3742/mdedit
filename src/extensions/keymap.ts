@@ -1,7 +1,7 @@
 import type { KeyBinding } from "@codemirror/view"
 import { toggleBold, toggleItalic, toggleStrikethrough } from "../commands/formatting.js"
 import { autocompleteCodeblock, autoRemoveCode } from "../commands/autocompleteCodeblock.js"
-import { insertLink } from "../commands/insertLink.js"
+import { toggleLink } from "../commands/toggleLink.js"
 import { toggleHeading } from "../commands/toggleHeading.js"
 import { startNewLine } from "../commands/startNewLine.js"
 
@@ -12,7 +12,7 @@ export const editorKeymap: KeyBinding[] = [
   { key: "`", run: autocompleteCodeblock, preventDefault: true },
   { key: "Backspace", run: autoRemoveCode },
   { key: "Shift-Enter", run: startNewLine },
-  { key: "Mod-k", run: insertLink, preventDefault: true },
+  { key: "Mod-k", run: toggleLink, preventDefault: true },
   { key: "Mod-1", run: toggleHeading(1), preventDefault: true },
   { key: "Mod-2", run: toggleHeading(2), preventDefault: true },
   { key: "Mod-3", run: toggleHeading(3), preventDefault: true },

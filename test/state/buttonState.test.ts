@@ -36,7 +36,7 @@ describe("getButtonState", () => {
     expect(stateAt("`co|de`").code).toBe("active")
   })
 
-  it("all buttons are inactive on plain text (link is always inactive)", () => {
+  it("all buttons are inactive on plain text", () => {
     const s = stateAt("pla|in text")
     expect(s).toEqual({
       bold: "inactive",
@@ -44,6 +44,10 @@ describe("getButtonState", () => {
       strikethrough: "inactive",
       code: "inactive",
       link: "inactive",
+      horizontalRule: "inactive",
+      blockquote: "inactive",
+      bulletList: "inactive",
+      orderedList: "inactive",
     })
   })
 
@@ -56,8 +60,37 @@ describe("getButtonState", () => {
     expect(s.code).toBe("active")
   })
 
-  it("link never becomes active even inside a link node", () => {
-    expect(stateAt("[te|xt](url)").link).toBe("inactive")
+  it("link is active inside a link node", () => {
+    expect(stateAt("[te|xt](url)").link).toBe("active")
+  })
+
+  it("blockquote is active inside a blockquote", () => {
+    expect(stateAt("> qu|ote").blockquote).toBe("active")
+  })
+
+  it("bulletList is active inside a bullet list", () => {
+    expect(stateAt("- it|em").bulletList).toBe("active")
+  })
+
+  it("orderedList is active inside an ordered list", () => {
+    expect(stateAt("1. it|em").orderedList).toBe("active")
+  })
+
+  it("horizontalRule is active when the caret is on a rule", () => {
+    expect(stateAt("-|--").horizontalRule).toBe("active")
+  })
+
+  it("an ordered item directly below a bullet list reports ordered, not bullet", () => {
+    const s = stateAt("- a\n1. b|")
+    expect(s.orderedList).toBe("active")
+    expect(s.bulletList).toBe("inactive")
+  })
+
+  it("an empty ordered item below a bullet list reports ordered, not bullet", () => {
+    // "1. " with no content is parsed as a loose continuation of the BulletList.
+    const s = stateAt("- a\n1. |")
+    expect(s.orderedList).toBe("active")
+    expect(s.bulletList).toBe("inactive")
   })
 
   it("empty bold markers **|** make bold active and suppress italic", () => {
