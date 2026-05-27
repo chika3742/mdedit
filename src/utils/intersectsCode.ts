@@ -24,8 +24,14 @@ export function intersectsCode(state: EditorState, sel?: SelectionRange): boolea
     from: sel.from, to: sel.to,
     enter: (node) => {
       if (CODE_NODE_NAMES.has(node.name)) {
-        found = true
-        return false
+        // Require a genuine overlap rather than a mere boundary touch. For an
+        // empty selection (cursor) this means the position must be strictly
+        // inside the node, so a cursor sitting just outside inline code does
+        // not count as intersecting.
+        if (node.from < sel.to && sel.from < node.to) {
+          found = true
+          return false
+        }
       }
       return !found
     },
