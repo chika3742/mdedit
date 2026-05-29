@@ -1,4 +1,4 @@
-import { EditorState, EditorSelection, SelectionRange, Text } from "@codemirror/state"
+import { ChangeSet, EditorState, EditorSelection, SelectionRange, Text } from "@codemirror/state"
 import type { Command } from "@codemirror/view"
 import { intersectsCode } from "../utils/intersectsCode.js"
 import { smallestNode } from "../utils/syntaxTree.js"
@@ -74,13 +74,8 @@ export function createToggleCommand(spec: MarkerSpec): Command {
         const transformed = text.split("\n").map((line) => {
           if (!line.trim()) return line
           const lineDoc = Text.of([line])
-          const r = toggleSurround(lineDoc, EditorSelection.range(0, line.length), spec)
-          // changesを当てた結果文字列を返す
-          let result = line
-          for (const c of r.changes.slice().reverse() as typeof r.changes) {
-            result = result.slice(0, c.from) + (c.insert ?? "") + result.slice("to" in c ? c.to : c.from)
-          }
-          return result
+          const { changes } = toggleSurround(lineDoc, EditorSelection.range(0, line.length), spec)
+          return ChangeSet.of(changes, line.length).apply(lineDoc).toString()
         }).join("\n")
         return {
           changes: [{ from: sel.from, to: sel.to, insert: transformed }],
