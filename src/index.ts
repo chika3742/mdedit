@@ -29,8 +29,10 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
 
   const view = createEditor({
     parent: element,
+    doc: options?.doc,
     uploadImage: options?.uploadImage,
     onUploadError: options?.onUploadError,
+    onChange: options?.onChanged,
     onCursorUpdate: onStateChange ? notify : undefined,
   })
 

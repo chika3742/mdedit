@@ -1,6 +1,14 @@
 export interface MarkdownEditorOptions {
   autofocus?: boolean
   /**
+   * Initial Markdown content to populate the editor with.
+   */
+  doc?: string
+  /**
+   * Called when the document content changes, with the current Markdown text.
+   */
+  onChanged?: (value: string) => void
+  /**
    * Called when the button state changes (caret move or edit).
    */
   onStateChange?: (state: ButtonState) => void
