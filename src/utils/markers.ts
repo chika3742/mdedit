@@ -41,7 +41,7 @@ export const inlineCodeSpec: MarkerSpec = {
   matcher: /`/g,
 }
 
-// 範囲の先頭/末尾にマーカーがあるか判定（カーソル時は範囲外も少し見る）
+// Detect a marker at the start/end of the range (for a cursor, peek just outside the range too).
 export function matchLen(doc: Text, sel: SelectionRange, spec: MarkerSpec, side: "start" | "end"): number {
   const buf = spec.template.length
   const [from, to] = sel.empty
@@ -57,8 +57,8 @@ export function matchLen(doc: Text, sel: SelectionRange, spec: MarkerSpec, side:
   return -1
 }
 
-// カーソル前後（または選択の先頭末尾）がマーカーで囲まれているか。
-// 空の **|** のように syntaxTree でノード化されない状態を検出する。
+// Whether the cursor (or the selection's start/end) is wrapped in markers.
+// Detects states the syntax tree does not turn into a node, such as an empty **|**.
 export function hasSurroundingMarkers(doc: Text, sel: SelectionRange, spec: MarkerSpec): boolean {
   return matchLen(doc, sel, spec, "start") >= 0 && matchLen(doc, sel, spec, "end") >= 0
 }
