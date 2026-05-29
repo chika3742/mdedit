@@ -22,6 +22,8 @@ import type { ButtonState } from "../src/index.js"
 
   const editor = createMarkdownEditor(document.querySelector("#md-root")!, {
     autofocus: true,
+    initialValue: "# Hello\n\nStart editing...",
+    onChanged: value => console.log("changed:", value),
     onStateChange: render,
     // Dummy upload: wait a moment, then return an object URL.
     uploadImage: async (file) => {
