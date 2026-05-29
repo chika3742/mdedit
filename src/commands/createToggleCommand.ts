@@ -1,27 +1,14 @@
 import { EditorState, EditorSelection, SelectionRange, Text } from "@codemirror/state"
-import { syntaxTree } from "@codemirror/language"
 import type { Command } from "@codemirror/view"
 import { intersectsCode } from "../utils/intersectsCode.js"
+import { smallestNode } from "../utils/syntaxTree.js"
 import { matchLen, type MarkerSpec } from "../utils/markers.js"
 
-// 構文木上、selが指定nodeNameに含まれるなら、その最小ノード範囲を返す
+// If the selection sits inside a node of the given name, return that node's
+// smallest matching range; otherwise return the selection unchanged.
 function growToNode(state: EditorState, sel: SelectionRange, nodeName: string): SelectionRange {
-  let newFrom: number | null = null
-  let newTo: number | null = null
-  let smallest = Infinity
-  syntaxTree(state).iterate({
-    from: sel.from, to: sel.to,
-    enter: (node) => {
-      if (node.name === nodeName && node.to - node.from < smallest) {
-        newFrom = node.from
-        newTo = node.to
-        smallest = newTo - newFrom
-      }
-    },
-  })
-  return newFrom !== null && newTo !== null
-    ? EditorSelection.range(newFrom, newTo)
-    : sel
+  const node = smallestNode(state, sel, n => n.name === nodeName)
+  return node ? EditorSelection.range(node.from, node.to) : sel
 }
 
 // 確定した範囲に対して toggle

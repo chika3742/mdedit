@@ -1,25 +1,14 @@
 import type { EditorState, SelectionRange } from "@codemirror/state"
-import { syntaxTree } from "@codemirror/language"
 import { intersectsCode } from "../utils/intersectsCode.js"
+import { contains, someNode } from "../utils/syntaxTree.js"
 import { boldSpec, hasSurroundingMarkers, inlineCodeSpec, italicSpec, strikethroughSpec } from "../utils/markers.js"
 import type { ButtonState, ButtonStateValue } from "../types.js"
 
 const CODE_ACTIVE_NODE_NAMES = new Set(["InlineCode", "FencedCode", "CodeBlock"])
 
-// 構文木上、selがいずれかのnodeNameに内包されているか
+// Whether the selection is contained within a node of one of the given names.
 function isWithinNode(state: EditorState, sel: SelectionRange, nodeNames: Set<string>): boolean {
-  let found = false
-  syntaxTree(state).iterate({
-    from: sel.from, to: sel.to,
-    enter: (node) => {
-      if (nodeNames.has(node.name) && node.from <= sel.from && node.to >= sel.to) {
-        found = true
-        return false
-      }
-      return !found
-    },
-  })
-  return found
+  return someNode(state, sel, node => nodeNames.has(node.name) && contains(node, sel))
 }
 
 function value(active: boolean, disabled: boolean): ButtonStateValue {
