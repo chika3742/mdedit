@@ -11,20 +11,20 @@ function growToNode(state: EditorState, sel: SelectionRange, nodeName: string): 
   return node ? EditorSelection.range(node.from, node.to) : sel
 }
 
-// 確定した範囲に対して toggle
+// Toggle the marker on the resolved range.
 function toggleSurround(doc: Text, sel: SelectionRange, spec: MarkerSpec) {
   const startLen = matchLen(doc, sel, spec, "start")
   const endLen = matchLen(doc, sel, spec, "end")
 
   if (startLen >= 0 && endLen >= 0) {
     if (sel.empty) {
-      // **|** → カーソル前後のマーカーを直接削除
+      // **|** → remove the markers on either side of the cursor directly.
       return {
         changes: [{ from: sel.from - startLen, to: sel.to + endLen, insert: "" }],
         range: EditorSelection.cursor(sel.from - startLen),
       }
     }
-    // すでにマーカー付き → 外す
+    // Already marked → strip the markers.
     let content = doc.sliceString(sel.from, sel.to)
     content = content.slice(startLen, content.length - endLen)
     return {
@@ -33,7 +33,7 @@ function toggleSurround(doc: Text, sel: SelectionRange, spec: MarkerSpec) {
     }
   }
 
-  // マーカーなし → 付ける
+  // No markers → add them.
   if (sel.empty) {
     return {
       changes: [{ from: sel.from, insert: spec.template + spec.template }],
@@ -49,7 +49,7 @@ function toggleSurround(doc: Text, sel: SelectionRange, spec: MarkerSpec) {
   }
 }
 
-// 複数行（パラグラフ行ごとに処理）
+// Multiline (process each paragraph line).
 function shouldUseMultiline(state: EditorState, sel: SelectionRange, spec: MarkerSpec): boolean {
   if (sel.empty) return false
   const multilineCapable = new Set(["StrongEmphasis", "Emphasis", "Strikethrough"])
@@ -63,12 +63,12 @@ export function createToggleCommand(spec: MarkerSpec): Command {
   return (view) => {
     const state = view.state
     const changes = state.changeByRange((sel) => {
-      // 要件7: コードブロックが含まれていたら何もしない
+      // Requirement 7: do nothing if the selection intersects code.
       if (intersectsCode(state, sel)) {
         return { range: sel }
       }
 
-      // 要件6: 複数行ならパラグラフごと
+      // Requirement 6: process per paragraph line when multiline.
       if (shouldUseMultiline(state, sel, spec)) {
         const text = state.doc.sliceString(sel.from, sel.to)
         const transformed = text.split("\n").map((line) => {
@@ -83,7 +83,7 @@ export function createToggleCommand(spec: MarkerSpec): Command {
         }
       }
 
-      // 要件3,5: カーソルがノード内ならノード範囲まで広げる
+      // Requirements 3, 5: if the cursor is inside a node, grow to the node range.
       const grown = growToNode(state, sel, spec.nodeName)
       return toggleSurround(state.doc, grown, spec)
     })
