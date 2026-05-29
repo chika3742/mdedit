@@ -3,7 +3,7 @@ export interface MarkdownEditorOptions {
   /**
    * Initial Markdown content to populate the editor with.
    */
-  doc?: string
+  initialValue?: string
   /**
    * Called when the document content changes, with the current Markdown text.
    */
