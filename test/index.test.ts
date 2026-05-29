@@ -7,6 +7,22 @@ function flush() {
   return new Promise<void>(resolve => setTimeout(resolve, 0))
 }
 
+// CodeMirror resolves "Mod" to Meta on macOS and Ctrl elsewhere, mirroring its own
+// `/Mac/.test(navigator.platform)` check. Match that here so the dispatched event hits the binding.
+const isMacPlatform = /Mac/.test(navigator.platform)
+
+// Dispatch a "Mod-s" keydown onto the editor's content DOM, the element CodeMirror listens on.
+function pressModS(parent: HTMLElement) {
+  const content = parent.querySelector(".cm-content")!
+  content.dispatchEvent(new KeyboardEvent("keydown", {
+    key: "s",
+    metaKey: isMacPlatform,
+    ctrlKey: !isMacPlatform,
+    bubbles: true,
+    cancelable: true,
+  }))
+}
+
 // Track created editors/parents so each test cleans up after itself.
 const mounted: { editor: MarkdownEditor, parent: HTMLElement }[] = []
 
@@ -68,5 +84,21 @@ describe("createMarkdownEditor", () => {
 
     expect(onChanged).toHaveBeenCalled()
     expect(onChanged).toHaveBeenLastCalledWith(expect.stringContaining("ab"))
+  })
+
+  it("calls onSave when Mod-s is pressed in the editor", () => {
+    const onSave = vi.fn()
+    const { parent } = mount({ onSave })
+
+    pressModS(parent)
+
+    expect(onSave).toHaveBeenCalledTimes(1)
+  })
+
+  it("does not register the save binding when onSave is omitted", () => {
+    const { parent } = mount()
+
+    // Without onSave the binding is never added, so dispatching Mod-s must not throw.
+    expect(() => pressModS(parent)).not.toThrow()
   })
 })

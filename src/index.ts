@@ -32,6 +32,7 @@ export const createMarkdownEditor = (element: HTMLElement, options?: MarkdownEdi
     doc: options?.initialValue,
     uploadImage: options?.uploadImage,
     onUploadError: options?.onUploadError,
+    onSave: options?.onSave,
     onChange: options?.onChanged,
     onCursorUpdate: onStateChange ? notify : undefined,
   })

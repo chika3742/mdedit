@@ -9,6 +9,10 @@ export interface MarkdownEditorOptions {
    */
   onChanged?: (value: string) => void
   /**
+   * Called when pressed Mod-s (Cmd-S on macOS) on the editor area.
+   */
+  onSave?: () => void
+  /**
    * Called when the button state changes (caret move or edit).
    */
   onStateChange?: (state: ButtonState) => void

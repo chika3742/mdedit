@@ -7,7 +7,7 @@ import { EditorState, Prec } from "@codemirror/state"
 import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands"
 import { classifyCodeblock } from "./extensions/classifyCodeblock.js"
 import { editorTheme, markdownHighlightStyle } from "./extensions/theme.js"
-import { editorKeymap } from "./extensions/keymap.js"
+import { editorKeymap, saveKeyBinding } from "./extensions/keymap.js"
 import { imageUpload } from "./extensions/imageUpload.js"
 
 export interface EditorConfig {
@@ -17,6 +17,7 @@ export interface EditorConfig {
   onUploadError?: (file: File, error: unknown) => void
   onChange?: (value: string) => void
   onCursorUpdate?: () => void
+  onSave?: () => void
 }
 
 export function createEditor(config: EditorConfig): EditorView {
@@ -34,7 +35,8 @@ export function createEditor(config: EditorConfig): EditorView {
     syntaxHighlighting(markdownHighlightStyle()),
     Prec.high(keymap.of(editorKeymap)),
     keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
-    Prec.highest(editorTheme),
+    Prec.high(editorTheme),
+    ...config.onSave ? [keymap.of([saveKeyBinding(config.onSave)])] : [],
   ]
 
   if (config.uploadImage) {

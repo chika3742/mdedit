@@ -1,4 +1,4 @@
-import type { KeyBinding } from "@codemirror/view"
+import type { Command, KeyBinding } from "@codemirror/view"
 import { toggleBold, toggleItalic, toggleStrikethrough } from "../commands/formatting.js"
 import { autocompleteCodeblock, autoRemoveCode } from "../commands/autocompleteCodeblock.js"
 import { toggleLink } from "../commands/toggleLink.js"
@@ -20,3 +20,11 @@ export const editorKeymap: KeyBinding[] = [
   { key: "Mod-5", run: toggleHeading(5), preventDefault: true },
   { key: "Mod-6", run: toggleHeading(6), preventDefault: true },
 ]
+
+export const saveKeyBinding = (onSave: () => void): KeyBinding => {
+  const run: Command = () => {
+    onSave()
+    return true
+  }
+  return { key: "Mod-s", run, preventDefault: true }
+}
