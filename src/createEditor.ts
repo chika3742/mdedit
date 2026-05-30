@@ -32,10 +32,10 @@ export function createEditor(config: EditorConfig): EditorView {
     highlightSpecialChars(),
     EditorView.lineWrapping,
     markdown({ base: markdownLanguage, codeLanguages: languages }),
-    syntaxHighlighting(markdownHighlightStyle()),
+    syntaxHighlighting(markdownHighlightStyle),
     Prec.high(keymap.of(editorKeymap)),
+    editorTheme,
     keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
-    Prec.high(editorTheme),
     ...config.onSave ? [keymap.of([saveKeyBinding(config.onSave)])] : [],
   ]
 

@@ -65,12 +65,12 @@ See [`example/`](./example) for a complete toolbar integration.
 
 Creates a Markdown editor in the given element and returns a `MarkdownEditor`.
 
-| Option | Type | Description |
-| --- | --- | --- |
-| `autofocus` | `boolean` | Focus the editor on creation |
-| `onStateChange` | `(state: ButtonState) => void` | Called when the button state changes on caret move or edit |
-| `uploadImage` | `(file: File) => Promise<string>` | Uploads an image and resolves to its URL. Enabling this lets the editor accept pasted/dropped images and exposes the `uploadImage` method |
-| `onUploadError` | `(file: File, error: unknown) => void` | Called when an image upload rejects |
+| Option          | Type                                   | Description                                                                                                                               |
+|-----------------|----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `autofocus`     | `boolean`                              | Focus the editor on creation                                                                                                              |
+| `onStateChange` | `(state: ButtonState) => void`         | Called when the button state changes on caret move or edit                                                                                |
+| `uploadImage`   | `(file: File) => Promise<string>`      | Uploads an image and resolves to its URL. Enabling this lets the editor accept pasted/dropped images and exposes the `uploadImage` method |
+| `onUploadError` | `(file: File, error: unknown) => void` | Called when an image upload rejects                                                                                                       |
 
 `MarkdownEditor` methods:
 
@@ -101,6 +101,15 @@ Creates a Markdown editor in the given element and returns a `MarkdownEditor`.
 | Heading 1–6 | `Mod-1` … `Mod-6` |
 
 Images can also be added by pasting or dropping them into the editor when `uploadImage` is configured.
+
+## Theming / Styling
+
+| CSS Class          | Description          | Configuration Example                           |
+|--------------------|----------------------|-------------------------------------------------|
+| .cm-editor         | Editor container     | Background color, margin, padding               |
+| .cm-content        | Editor content       | Font family, caret color, text color, font size |
+| .cm-codeblock-line | Lines of code blocks | Background color, font family                   |
+| .cm-inline-code    | Inline code span     | Background color, font family                   |
 
 ## Development
 
