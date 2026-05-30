@@ -10,7 +10,8 @@
     "test": "vitest run",
     "lint": "eslint",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tag": "sh scripts/tag.sh"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
