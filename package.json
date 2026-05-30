@@ -38,7 +38,6 @@
     "@codemirror/view": "^6.36.1",
     "@lezer/common": "^1.5.2",
     "@lezer/highlight": "^1.2.1",
-    "@lezer/markdown": "^1.6.3",
     "es-toolkit": "^1.47.0"
   },
   "devDependencies": {
