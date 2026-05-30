@@ -30,7 +30,7 @@ export const classifyCodeblock = ViewPlugin.fromClass(
                 line.from,
                 line.from,
                 Decoration.line({
-                  class: "cm-codeblock-line monospace-font",
+                  class: "cm-codeblock-line",
                 }),
               )
             }

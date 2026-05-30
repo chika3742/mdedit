@@ -10,7 +10,7 @@ export const markdownHighlightStyle = () => {
     { tag: t.heading4, fontSize: "1.15em", fontWeight: "700" },
     { tag: [t.heading5, t.heading6], fontSize: "1.05em", fontWeight: "700" },
     { tag: t.list, color: "#dcdcdc" },
-    { tag: [t.monospace], class: "monospace-font", color: "#ed8780" },
+    { tag: [t.monospace], class: "cm-inline-code", color: "#ed8780" },
     { tag: t.strong, fontWeight: "700" },
     { tag: t.emphasis, fontStyle: "italic" },
     { tag: t.strikethrough, textDecoration: "line-through" },
