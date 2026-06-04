@@ -1,4 +1,4 @@
-import { dropCursor, EditorView, highlightSpecialChars, keymap } from "@codemirror/view"
+import { drawSelection, dropCursor, EditorView, highlightSpecialChars, keymap } from "@codemirror/view"
 import { bracketMatching, indentOnInput, syntaxHighlighting } from "@codemirror/language"
 import { closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
@@ -23,6 +23,7 @@ export interface EditorConfig {
 export function createEditor(config: EditorConfig): EditorView {
   const extensions = [
     classifyCodeblock,
+    drawSelection(),
     history(),
     dropCursor(),
     indentOnInput(),
@@ -34,7 +35,7 @@ export function createEditor(config: EditorConfig): EditorView {
     markdown({ base: markdownLanguage, codeLanguages: languages }),
     syntaxHighlighting(markdownHighlightStyle),
     Prec.high(keymap.of(editorKeymap)),
-    editorTheme,
+    Prec.highest(editorTheme),
     keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
     ...config.onSave ? [keymap.of([saveKeyBinding(config.onSave)])] : [],
   ]

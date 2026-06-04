@@ -13,8 +13,7 @@ export const markdownHighlightStyle = HighlightStyle.define([
   { tag: t.strong, fontWeight: "700" },
   { tag: t.emphasis, fontStyle: "italic" },
   { tag: t.strikethrough, textDecoration: "line-through" },
-  { tag: t.link, color: "#2563eb", textDecoration: "underline" },
-  { tag: t.url, color: "#2563eb" },
+  { tag: [t.link, t.url], color: "#4097f1", textDecoration: "underline" },
   { tag: t.quote, color: "#5f6368", fontStyle: "italic" },
   { tag: [t.meta, t.processingInstruction], color: "#9aa0a6" },
   { tag: [t.keyword, t.bool, t.special(t.typeName)], color: "#ec9659" },
@@ -28,6 +27,12 @@ export const markdownHighlightStyle = HighlightStyle.define([
 export const editorTheme = EditorView.theme({
   "&": {
     backgroundColor: "#252525",
+  },
+  "&.cm-focused .cm-selectionBackground": {
+    background: "#456e37 !important",
+  },
+  ".cm-selectionBackground": {
+    background: "#6c6c6c !important",
   },
   ".cm-content": {
     color: "#efefef",
