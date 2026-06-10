@@ -37,7 +37,7 @@ export const editorTheme = EditorView.theme({
   ".cm-content": {
     color: "#efefef",
   },
-  ".cm-codeblock-line, .cm-inline-code": {
+  ".cm-code-background": {
     backgroundColor: "#343434",
   },
 }, { dark: true })

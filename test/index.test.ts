@@ -64,6 +64,12 @@ describe("createMarkdownEditor", () => {
     expect(parent.querySelector(".cm-content")?.textContent).toContain("# Hello")
   })
 
+  it("registers the code background layer", () => {
+    const { parent } = mount({ initialValue: "```\ncode\n```" })
+
+    expect(parent.querySelector(".cm-code-background-layer")).not.toBeNull()
+  })
+
   it("starts empty when initialValue is omitted", () => {
     const { parent } = mount()
 

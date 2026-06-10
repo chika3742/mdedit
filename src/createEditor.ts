@@ -6,6 +6,7 @@ import { languages } from "@codemirror/language-data"
 import { EditorState, Prec } from "@codemirror/state"
 import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands"
 import { classifyCodeblock } from "./extensions/classifyCodeblock.js"
+import { codeBackgroundLayer } from "./extensions/codeBackgroundLayer.js"
 import { editorTheme, markdownHighlightStyle } from "./extensions/theme.js"
 import { editorKeymap, saveKeyBinding } from "./extensions/keymap.js"
 import { imageUpload } from "./extensions/imageUpload.js"
@@ -24,6 +25,9 @@ export function createEditor(config: EditorConfig): EditorView {
   const extensions = [
     classifyCodeblock,
     drawSelection(),
+    // Below-content layers get z-index -1 minus their facet position, so this
+    // must sort after drawSelection()'s selection layer to paint behind it.
+    Prec.lowest(codeBackgroundLayer),
     history(),
     dropCursor(),
     indentOnInput(),
