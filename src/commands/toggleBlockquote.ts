@@ -7,7 +7,7 @@ import { BLOCKQUOTE_RE, BULLET_RE, ORDERED_RE, otherPrefixLen, prefixLen, target
 // convert all lines to blockquotes (replacing any list prefix).
 export const toggleBlockquote: Command = (view) => {
   const { state } = view
-  const lines = targetLines(state, { includeCodeLines: true })
+  const lines = targetLines(state, { includeCodeLines: true, includeBlankLines: true })
   if (lines.length === 0) return false
   const allQuotes = lines.every(line => prefixLen(line.text, BLOCKQUOTE_RE) > 0)
   const changes: ChangeSpec[] = []
