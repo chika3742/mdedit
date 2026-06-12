@@ -42,20 +42,17 @@ export function selectedLineNumbers(state: EditorState): number[] {
 }
 
 // Lines a line-prefix toggle should act on: every line touched by the selection,
-// excluding (unless includeCodeLines is true) code lines and (only for multi-line
-// selections) blank lines so a single empty line can still be turned into a list/quote.
+// excluding (unless includeCodeLines is true) code lines.
 export function targetLines(
   state: EditorState,
   options: { includeCodeLines?: boolean } = {},
 ): Line[] {
   const { includeCodeLines = false } = options
   const lineNumbers = selectedLineNumbers(state)
-  const multiLine = lineNumbers.length > 1
   const lines: Line[] = []
   for (const lineNumber of lineNumbers) {
     const line = state.doc.line(lineNumber)
     if (!includeCodeLines && intersectsCode(state, EditorSelection.range(line.from, line.to))) continue
-    if (multiLine && line.length === 0) continue
     lines.push(line)
   }
   return lines

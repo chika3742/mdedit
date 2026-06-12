@@ -34,11 +34,11 @@ describe("toggleBulletList", () => {
     expect(render(view)).toBe("- |item")
   })
 
-  it("skips blank lines in a multi-line selection", () => {
+  it("includes blank lines in a multi-line selection", () => {
     const doc = "foo\n\nbar"
     const view = rangeView(doc, 0, doc.length)
     toggleBulletList(view)
-    expect(view.state.doc.toString()).toBe("- foo\n\n- bar")
+    expect(view.state.doc.toString()).toBe("- foo\n- \n- bar")
   })
 
   it("unifies a mixed selection to bullets when any line is not a bullet", () => {

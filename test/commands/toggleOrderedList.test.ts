@@ -28,11 +28,11 @@ describe("toggleOrderedList", () => {
     expect(render(view)).toBe("1. |")
   })
 
-  it("skips blank lines and does not number them", () => {
+  it("includes blank lines in a multi-line selection", () => {
     const doc = "foo\n\nbar"
     const view = rangeView(doc, 0, doc.length)
     toggleOrderedList(view)
-    expect(view.state.doc.toString()).toBe("1. foo\n\n2. bar")
+    expect(view.state.doc.toString()).toBe("1. foo\n2. \n3. bar")
   })
 
   it("unifies a mixed selection to numbers when any line is not numbered", () => {

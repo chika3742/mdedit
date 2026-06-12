@@ -28,11 +28,11 @@ describe("toggleBlockquote", () => {
     expect(render(view)).toBe("> |")
   })
 
-  it("skips blank lines in a multi-line selection", () => {
+  it("includes blank lines in a multi-line selection", () => {
     const doc = "foo\n\nbar"
     const view = rangeView(doc, 0, doc.length)
     toggleBlockquote(view)
-    expect(view.state.doc.toString()).toBe("> foo\n\n> bar")
+    expect(view.state.doc.toString()).toBe("> foo\n> \n> bar")
   })
 
   it("unifies a mixed selection to blockquotes when any line is not a quote", () => {
