@@ -54,7 +54,7 @@ export function getButtonState(state: EditorState): ButtonState {
     code: value(codeActive, false),
     link: value(link, code),
     horizontalRule: value(horizontalRule, code),
-    blockquote: value(blockquote, code),
+    blockquote: value(blockquote, false),
     bulletList: value(bulletList, code),
     orderedList: value(orderedList, code),
     heading2: value(level === 2, code),

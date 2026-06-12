@@ -63,6 +63,10 @@ describe("getButtonState", () => {
     expect(s.code).toBe("active")
   })
 
+  it("blockquote is inactive (not disabled) inside a fenced code block", () => {
+    expect(stateAt("```\nco|de\n```").blockquote).toBe("inactive")
+  })
+
   it("link is active inside a link node", () => {
     expect(stateAt("[te|xt](url)").link).toBe("active")
   })
