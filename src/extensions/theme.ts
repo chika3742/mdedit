@@ -14,7 +14,7 @@ export const markdownHighlightStyle = HighlightStyle.define([
   { tag: t.emphasis, fontStyle: "italic" },
   { tag: t.strikethrough, textDecoration: "line-through" },
   { tag: [t.link, t.url], color: "#4097f1", textDecoration: "underline" },
-  { tag: t.quote, color: "#5f6368", fontStyle: "italic" },
+  { tag: t.quote, color: "#c8c8c8", fontStyle: "italic" },
   { tag: [t.meta, t.processingInstruction], color: "#9aa0a6" },
   { tag: [t.keyword, t.bool, t.special(t.typeName)], color: "#ec9659" },
   { tag: [t.string], color: "#4bea3f" },
