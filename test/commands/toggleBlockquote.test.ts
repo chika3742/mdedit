@@ -28,11 +28,11 @@ describe("toggleBlockquote", () => {
     expect(render(view)).toBe("> |")
   })
 
-  it("skips blank lines in a multi-line selection", () => {
+  it("includes blank lines in a multi-line selection", () => {
     const doc = "foo\n\nbar"
     const view = rangeView(doc, 0, doc.length)
     toggleBlockquote(view)
-    expect(view.state.doc.toString()).toBe("> foo\n\n> bar")
+    expect(view.state.doc.toString()).toBe("> foo\n> \n> bar")
   })
 
   it("unifies a mixed selection to blockquotes when any line is not a quote", () => {
@@ -55,10 +55,23 @@ describe("toggleBlockquote", () => {
     expect(view.state.doc.toString()).toBe("> item")
   })
 
-  it("does nothing inside a code block", () => {
-    const doc = "```\ncode\n```"
+  it("adds a blockquote prefix to a line inside a fenced code block", () => {
     const view = cursorView("```\nco|de\n```")
     toggleBlockquote(view)
-    expect(view.state.doc.toString()).toBe(doc)
+    expect(view.state.doc.toString()).toBe("```\n> code\n```")
+  })
+
+  it("applies to all lines when selection spans text and a fenced code block", () => {
+    const doc = "intro\n```\ncode\n```"
+    const view = rangeView(doc, 0, doc.length)
+    toggleBlockquote(view)
+    expect(view.state.doc.toString()).toBe("> intro\n> ```\n> code\n> ```")
+  })
+
+  it("removes blockquote prefix from all lines including fenced code block lines", () => {
+    const doc = "> ```\n> code\n> ```"
+    const view = rangeView(doc, 0, doc.length)
+    toggleBlockquote(view)
+    expect(view.state.doc.toString()).toBe("```\ncode\n```")
   })
 })

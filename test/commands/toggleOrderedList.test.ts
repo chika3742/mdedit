@@ -28,7 +28,7 @@ describe("toggleOrderedList", () => {
     expect(render(view)).toBe("1. |")
   })
 
-  it("skips blank lines and does not number them", () => {
+  it("skips blank lines and does not create empty items", () => {
     const doc = "foo\n\nbar"
     const view = rangeView(doc, 0, doc.length)
     toggleOrderedList(view)
