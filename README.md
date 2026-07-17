@@ -4,8 +4,14 @@
 > 
 > This package is not intended for use outside of my project.
 
-An embeddable Markdown editor library built on [CodeMirror 6](https://codemirror.net/).
-It provides formatting commands — bold, italic, strikethrough, code, link, font color, font size, horizontal rule, blockquote, bullet list, and ordered list — along with image upload and a way to read the toolbar state (active / inactive / disabled).
+An Toolbar-headless Markdown editor built on [CodeMirror 6](https://codemirror.net/).
+
+## Features
+
+- **Toolbar API.** This provides toggle operation methods and button states (enabled/active/disabled), you can create your own design for the toolbar.
+- **Async image insertion.** You can provide an image uploading callback and insert a placeholder while uploading. When the upload completes, the actual image URL is inserted.
+- **Codeblock syntax highlighting.** The code blocks you enter into the editor are syntax-highlighted. Closing tags of inline code and code blocks are automatically inserted.
+- **Keyboard shortcuts.** Basic keyboard shortcuts are included.
 
 ## Installation
 
