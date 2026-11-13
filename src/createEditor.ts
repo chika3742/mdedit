@@ -10,6 +10,7 @@ import { codeBackgroundLayer } from "./extensions/codeBackgroundLayer.js"
 import { editorTheme, markdownHighlightStyle } from "./extensions/theme.js"
 import { editorKeymap, saveKeyBinding } from "./extensions/keymap.js"
 import { imageUpload } from "./extensions/imageUpload.js"
+import { segmentedWordSelection } from "./extensions/segmentedWordSelection.js"
 
 export interface EditorConfig {
   parent: HTMLElement
@@ -42,6 +43,7 @@ export function createEditor(config: EditorConfig): EditorView {
     Prec.highest(editorTheme),
     keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
     ...config.onSave ? [keymap.of([saveKeyBinding(config.onSave)])] : [],
+    segmentedWordSelection,
   ]
 
   if (config.uploadImage) {
