@@ -36,8 +36,8 @@ importers:
         specifier: ^1.2.1
         version: 1.2.3
       es-toolkit:
-        specifier: ^1.47.0
-        version: 1.47.0
+        specifier: ^1.53.2
+        version: 1.53.2
     devDependencies:
       '@eslint/js':
         specifier: ^10.0.1
@@ -696,8 +696,8 @@ packages:
   es-module-lexer@2.1.0:
     resolution: {integrity: sha512-n27zTYMjYu1aj4MjCWzSP7G9r75utsaoc8m61weK+W8JMBGGQybd43GstCXZ3WNmSFtGT9wi59qQTW6mhTR5LQ==}
 
-  es-toolkit@1.47.0:
-    resolution: {integrity: sha512-n1GuoD0WEQZMBk5tttoZSqwgyLx01oqa5XsBmCHwPyNe1S9jPBEmtR2pSgp2kJuWE3ciFZ6yRHmY4pM4C3OOkw==}
+  es-toolkit@1.53.2:
+    resolution: {integrity: sha512-iUqZ+NlwH4jUgRmXZUxFBsV/9762TQEa1O4IXLFBmDEjVHScBytKuseX23I0+v9ShZ5MYxEx6WKNzm6IPnex8g==}
 
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
@@ -2176,7 +2176,7 @@ snapshots:
 
   es-module-lexer@2.1.0: {}
 
-  es-toolkit@1.47.0: {}
+  es-toolkit@1.53.2: {}
 
   escape-string-regexp@4.0.0: {}
 

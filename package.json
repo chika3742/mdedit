@@ -39,7 +39,7 @@
     "@codemirror/view": "^6.36.1",
     "@lezer/common": "^1.5.2",
     "@lezer/highlight": "^1.2.1",
-    "es-toolkit": "^1.47.0"
+    "es-toolkit": "^1.53.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
