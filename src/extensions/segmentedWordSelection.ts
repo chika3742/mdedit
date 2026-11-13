@@ -29,9 +29,8 @@ const wordRangeAt = (state: EditorState, pos: number, assoc: 1 | -1): SelectionR
   }
   const backExtending = scan(segment, "backward")
   const forwardExtending = scan(segment, "forward")
-  console.log({ forwardExtending, backExtending })
   const from = line.from + segment.index
-  return EditorSelection.range(from - backExtending, from + segment.segment.length + forwardExtending)
+  return EditorSelection.undirectionalRange(from - backExtending, from + segment.segment.length + forwardExtending)
 }
 
 export const segmentedWordSelection = EditorView.mouseSelectionStyle.of((view, event) => {
