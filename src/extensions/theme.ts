@@ -20,6 +20,8 @@ export const markdownHighlightStyle = HighlightStyle.define([
   { tag: [t.string], color: "#4bea3f" },
   { tag: [t.variableName], color: "#dd88f8" },
   { tag: [t.number], color: "#81bcf6" },
+  { tag: [t.comment, t.lineComment, t.blockComment], color: "#a5a5a5" },
+  { tag: [t.docComment], color: "#7c9f6f" },
 ], {
   themeType: "dark",
 })
